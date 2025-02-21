@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+load_dotenv() 
 import websocket
 import json
 import pandas as pd
@@ -10,19 +13,24 @@ from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import pickle
-import os
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # WebSocket Parameters
-APP_ID = "67625"
+APP_ID = os.getenv("APP_ID")
+API_TOKEN = os.getenv("API_TOKEN")
+DB_FILE = os.getenv("DB_FILE")
+MODEL_FILE = os.getenv("MODEL_FILE")
+
+if not all([APP_ID, API_TOKEN, DB_FILE, MODEL_FILE]):
+    logging.error("One or more required environment variables (APP_ID, API_TOKEN, DB_FILE, MODEL_FILE) are missing!")
+    exit(1)
+
+# Trading Parameters
 SYMBOL = "frxAUDJPY"
 CURRENCY = "USD"
 INITIAL_STAKE = 0.50
-API_TOKEN = "QQRAPUXRJB6qqfT"
-DB_FILE = "forex_knowledge.db"
-MODEL_FILE = "forex_model_weights.pkl"  # File to save/load the model weights
 
 # Global Variables
 current_stake = INITIAL_STAKE
