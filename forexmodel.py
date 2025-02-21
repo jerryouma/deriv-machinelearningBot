@@ -62,7 +62,7 @@ def load_model():
         logging.info("No saved model found.")
 
 ##############################
-# Technical Indicator Helpers
+# Technical Indicator 
 ##############################
 def calculate_rsi(prices, period=14):
     """Calculate the Relative Strength Index (RSI) for a list of prices."""
